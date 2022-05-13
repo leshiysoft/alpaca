@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 {
   printf("Hello, alpaca!\n");
 
-  std::string s ("for 456 == \n func");
+  std::string s ("for 456 == \n func `` hello");
   std::smatch m;
 
   Alpaca::Lexer lexer;
@@ -21,6 +21,11 @@ int main(int argc, char** argv)
   {
     std::cout << "[" << res << "] "<< tn << std::endl;
     s = s.substr(res.length());
+  }
+
+  if (s.length() > 0)
+  {
+    std::cout << "[" << s.substr(0, 10) << "] unknown" << std::endl;
   }
 
   return 0;
