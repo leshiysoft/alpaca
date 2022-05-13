@@ -2,7 +2,7 @@ CC = g++
 
 # -c  --- только компиляция
 # -Wall  --- все предупреждения компилятора включить
-CFLAGS = -c -std=c++11 -Wall -I.\include
+CFLAGS = -c -std=c++11 -Wall -I.\include -DALPACA_LOG_ON
 
 LFLAGS=
 

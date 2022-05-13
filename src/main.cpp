@@ -2,9 +2,11 @@
 #include <iostream>
 
 #include "lexer.hpp"
+#include "logger.hpp"
 
 int main(int argc, char** argv)
 {
+  ALPACA_LOG_FUNC("main");
   printf("Hello, alpaca!\n");
 
   std::string s ("for 456 == \n func `` hello");

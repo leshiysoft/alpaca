@@ -1,9 +1,11 @@
 #include "lexer.hpp"
+#include "logger.hpp"
 
 namespace Alpaca {
 
 Lexer::Lexer()
 {
+  ALPACA_LOG_FUNC("Lexer::Lexer");
   patterns.reserve(100);
   patterns.push_back(Pattern{std::regex("^func"), std::string("func")});
   patterns.push_back(Pattern{std::regex("^for"), std::string("for")});
@@ -63,6 +65,7 @@ Lexer::Lexer()
 
 bool Lexer::getLexeme(std::string &text, std::string& typeName, std::string& res)
 {
+  ALPACA_LOG_FUNC("Lexer::getLexeme");
   std::smatch m;
   for (auto pat = patterns.begin(); pat != patterns.end(); pat++)
   {
