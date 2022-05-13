@@ -4,7 +4,7 @@ CC = g++
 # -Wall  --- все предупреждения компилятора включить
 CFLAGS = -c -std=c++11 -Wall -I.\include -DALPACA_LOG_ON
 
-LFLAGS=
+LFLAGS =
 
 BUILD_DIR = build
 
