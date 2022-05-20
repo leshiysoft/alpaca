@@ -9,7 +9,12 @@ int main(int argc, char** argv)
   ALPACA_LOG_FUNC("main");
   printf("Hello, alpaca!\n");
 
-  std::string s ("for 456 == \n func `` hello");
+  std::string s;
+
+  std::ifstream sourcefile;
+  sourcefile.open ("al/test.al");
+
+
   std::smatch m;
 
   Alpaca::Lexer lexer;
@@ -18,17 +23,31 @@ int main(int argc, char** argv)
 
   std::string res;
 
+  int line = 0;
+  int pos;
 
-  while (lexer.getLexeme(s, tn, res ))
+  while (!sourcefile.eof())
   {
-    std::cout << "[" << res << "] "<< tn << std::endl;
-    s = s.substr(res.length());
-  }
+    std::getline(sourcefile, s);
+    line++;
+    pos = 0;
 
-  if (s.length() > 0)
-  {
-    std::cout << "[" << s.substr(0, 10) << "] unknown" << std::endl;
+
+
+    while (s.length() > 0 && lexer.getLexeme(s, tn, res ))
+    {
+      std::cout << line << ":" << pos << "\t[" << res << "] "<< tn << std::endl;
+      s = s.substr(res.length());
+      pos += res.length();
+    }
+
+    if (s.length() > 0)
+    {
+      std::cout << "[" << s.substr(0, 10) << "] unknown" << std::endl;
+    }
+
   }
+  sourcefile.close();
 
   return 0;
 }
