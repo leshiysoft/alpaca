@@ -15,7 +15,6 @@ Lexer::Lexer()
   patterns.push_back(Pattern{std::regex("^\\d+\\.\\d+"), std::string("float")});
   patterns.push_back(Pattern{std::regex("^[a-zA-Z][a-zA-Z0-9_]*"), std::string("id")});
   patterns.push_back(Pattern{std::regex("^\"(([^\"\\\\])|(\\\\.))*\""), std::string("string")});
-  //patterns.push_back(Pattern{std::regex("^#[^\\n]*[\\n]?"), std::string("comment")});
   patterns.push_back(Pattern{std::regex("^#.*$"), std::string("comment")});
 
   std::vector<std::string> literals = {
