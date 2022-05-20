@@ -7,6 +7,8 @@
 #include <map>
 #include <set>
 
+#include "logger.hpp"
+
 namespace Alpaca {
 
 class Parser
@@ -17,6 +19,15 @@ public:
   struct Symbol {
     bool isTerminal;
     std::string name;
+
+    bool operator < (const Symbol &other) const
+    {
+      if (isTerminal == other.isTerminal)
+      {
+        return name < other.name;
+      }
+      return isTerminal < other.isTerminal;
+    }
   };
 
   struct Rule {
@@ -24,25 +35,40 @@ public:
     std::list<Symbol> rightSide;
   };
 
-  struct Grammar {
-    std::vector<Rule> rules;
-  };
-
-  struct {
-    std::map<Symbol,std::set<Symbol>> firsts;
-  } setOfFirsts;
-
-  struct {
-    std::map<Symbol,std::set<Symbol>> follows;
-  } setOfFollows;
+  std::vector<Rule> rules;
+  std::map<Symbol,std::set<Symbol>> firsts;
+  std::map<Symbol,std::set<Symbol>> follows;
 
 private:
 
+  void addRule(const Rule &rule);
+  void fillSetOfFirsts();
+  void getNonTerminals(std::set<Symbol> &nonTerminals);
+
 }; // class Parser
 
-} // namespace Alpaca
+namespace Log
+{
+  inline void dump(std::vector<Parser::Rule> &rules)
+  {
+      Logger::instance().write("{");
+      Logger::instance().depthIn();
+      for(auto r = rules.begin(); r != rules.end(); r++)
+      {
+          std::string rule_str = r->leftSide.name;
+          rule_str.append(" -> ");
+          for(auto l = r->rightSide.begin(); l != r->rightSide.end(); l++)
+          {
+            rule_str.append(l->name + " ");
+          }
+          Logger::instance().write(rule_str);
+      }
+      Logger::instance().depthOut();
+      Logger::instance().write("};");
 
-bool comp(Alpaca::Parser::Symbol a, Alpaca::Parser::Symbol b);
-bool equiv(Alpaca::Parser::Symbol a, Alpaca::Parser::Symbol b);
+  }
+} // namespace Log
+
+} // namespace Alpaca
 
 #endif // ALPACA_PARSER_HPP

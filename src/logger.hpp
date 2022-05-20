@@ -5,13 +5,15 @@
 #include <fstream>
 
 #ifdef ALPACA_LOG_ON
-#define ALPACA_LOG(text) Alpaca::Log::Logger::instance().write(std::string(text) + ";");
-#define ALPACA_LOG_FUNC(fname) Alpaca::Log::Logger::instance().write(std::string(fname)+"(...)"); Alpaca::Log::LogBlock al_log_block;
-#define ALPACA_LOG_DUMP(var) Alpaca::Log::dump(var);
+#define ALPACA_LOG(text) Alpaca::Log::Logger::instance().write(std::string("//") + text + "");
+#define ALPACA_LOG_FUNC(fname) Alpaca::Log::Logger::instance().write(#fname "(...)"); Alpaca::Log::LogBlock al_log_block(#fname);
+#define ALPACA_LOG_BLOCK(bname) Alpaca::Log::Logger::instance().write(#bname ":"); Alpaca::Log::LogBlock al_log_block(#bname);
+#define ALPACA_LOG_DUMP(var) Alpaca::Log::Logger::instance().write(#var " = "); Alpaca::Log::dump(var);
 #else
 #define ALPACA_LOG(text)
 #define ALPACA_LOG_FUNC(fname)
-#define ALPACA_LOG_DUMP(var) Alpaca::Log::dump(var);
+#define ALPACA_LOG_BLOCK(bname)
+#define ALPACA_LOG_DUMP(var)
 #endif
 
 #ifdef ALPACA_LOG_ON
@@ -41,7 +43,7 @@ private:
     }
 
 public:
-    void write(const std::string& text){
+    void write(const std::string &text){
         for(int i=0; i<depth; i++){
             file << "  ";
         }
@@ -59,21 +61,28 @@ public:
 class LogBlock
 {
 public:
-    LogBlock()
+    LogBlock(std::string bn = "")
     {
         Logger::instance().write("{");
         Logger::instance().depthIn();
+        blockName = bn;
     }
     ~LogBlock()
     {
         Logger::instance().depthOut();
-        Logger::instance().write("}");
+        Logger::instance().write("} //" + blockName);
     }
+    std::string blockName;
 };
 
 inline void dump(int i)
 {
-    ALPACA_LOG(std::to_string(i));
+    Logger::instance().write(std::to_string(i));
+}
+
+inline void dump(std::string &s)
+{
+    Logger::instance().write("\"" + s + "\"");
 }
 
 } //namespace Log
