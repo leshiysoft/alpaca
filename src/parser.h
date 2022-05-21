@@ -32,7 +32,7 @@ public:
 
   struct Rule {
     Symbol leftSide;
-    std::list<Symbol> rightSide;
+    std::vector<Symbol> rightSide;
   };
 
   std::vector<Rule> rules;
@@ -43,6 +43,7 @@ private:
 
   void addRule(const Rule &rule);
   void fillFirsts();
+  void fillFollows();
   void getNonTerminals(std::set<Symbol> &nonTerminals);
 
 }; // class Parser
