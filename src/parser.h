@@ -42,14 +42,14 @@ public:
 private:
 
   void addRule(const Rule &rule);
-  void fillSetOfFirsts();
+  void fillFirsts();
   void getNonTerminals(std::set<Symbol> &nonTerminals);
 
 }; // class Parser
 
 namespace Log
 {
-  inline void dump(std::vector<Parser::Rule> &rules)
+  inline void dump(const std::vector<Parser::Rule> &rules)
   {
       Logger::instance().write("{");
       Logger::instance().depthIn();
@@ -66,6 +66,25 @@ namespace Log
       Logger::instance().depthOut();
       Logger::instance().write("};");
 
+  }
+
+  inline void dump(const std::map<Parser::Symbol,std::set<Parser::Symbol>> &sets)
+  {
+    Logger::instance().write("{");
+    Logger::instance().depthIn();
+    for(auto kv = sets.begin(); kv != sets.end(); kv++)
+    {
+      std::string kv_str = kv->first.name;
+      kv_str.append(" : ");
+      for(auto sym = kv->second.begin(); sym != kv->second.end(); sym++)
+      {
+        kv_str.append(sym->name);
+        kv_str.append(" ");
+      }
+      Logger::instance().write(kv_str);
+    }
+    Logger::instance().depthOut();
+    Logger::instance().write("};");
   }
 } // namespace Log
 

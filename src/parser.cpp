@@ -19,6 +19,8 @@ namespace Alpaca
     addRule(Rule{NTS(A),      {TS(c)}});
 
     ALPACA_LOG_DUMP(rules);
+
+    fillFirsts();
   }
 
   void Parser::addRule(const Rule &rule)
@@ -26,9 +28,9 @@ namespace Alpaca
     rules.push_back(rule);
   }
 
-  void Parser::fillSetOfFirsts()
+  void Parser::fillFirsts()
   {
-    ALPACA_LOG_FUNC(Parser::fillSetOfFirsts);
+    ALPACA_LOG_FUNC(Parser::fillFirsts);
 
     bool isSetOfFirstsChanged = true;
     while (isSetOfFirstsChanged)
@@ -56,6 +58,7 @@ namespace Alpaca
           }
         }
       }
+      ALPACA_LOG_DUMP(firsts);
     }
   }
 
