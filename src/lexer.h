@@ -1,5 +1,5 @@
-#ifndef ALPACA_LEXER_HPP
-#define ALPACA_LEXER_HPP
+#ifndef ALPACA_LEXER_H
+#define ALPACA_LEXER_H
 
 #include <string>
 #include <regex>
@@ -25,4 +25,4 @@ private:
 } // namespace Alpaca
 
 
-#endif // ALPACA_LEXER_HPP
+#endif // ALPACA_LEXER_H

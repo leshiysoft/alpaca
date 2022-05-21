@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <iostream>
 
-#include "lexer.hpp"
-#include "logger.hpp"
-#include "parser.hpp"
+#include "lexer.h"
+#include "logger.h"
+#include "parser.h"
 
 int main(int argc, char** argv)
 {

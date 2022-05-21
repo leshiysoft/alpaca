@@ -1,5 +1,5 @@
-#ifndef ALPACA_PARSER_HPP
-#define ALPACA_PARSER_HPP
+#ifndef ALPACA_PARSER_H
+#define ALPACA_PARSER_H
 
 #include <string>
 #include <list>
@@ -7,7 +7,7 @@
 #include <map>
 #include <set>
 
-#include "logger.hpp"
+#include "logger.h"
 
 namespace Alpaca {
 
@@ -71,4 +71,4 @@ namespace Log
 
 } // namespace Alpaca
 
-#endif // ALPACA_PARSER_HPP
+#endif // ALPACA_PARSER_H

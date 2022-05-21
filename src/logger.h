@@ -1,5 +1,5 @@
-#ifndef ALPACA_LOGGER_HPP
-#define ALPACA_LOGGER_HPP
+#ifndef ALPACA_LOGGER_H
+#define ALPACA_LOGGER_H
 
 #include <iostream>
 #include <fstream>
@@ -90,4 +90,4 @@ inline void dump(std::string &s)
 
 #endif // ALPACA_LOG_ON
 
-#endif // ALPACA_LOGGER_HPP
+#endif // ALPACA_LOGGER_H

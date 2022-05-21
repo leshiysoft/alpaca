@@ -1,5 +1,5 @@
-#include "lexer.hpp"
-#include "logger.hpp"
+#include "lexer.h"
+#include "logger.h"
 
 namespace Alpaca {
 
