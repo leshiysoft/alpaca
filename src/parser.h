@@ -35,16 +35,31 @@ public:
     std::vector<Symbol> rightSide;
   };
 
+  struct RuleState {
+    Symbol leftSide;
+    std::list<Symbol> before;
+    std::list<Symbol> after;
+    std::set<Symbol> follows;
+  };
+
+  struct Item {
+    std::set<RuleState> states;
+    std::map<Symbol, int> ways;
+  };
+
   std::vector<Rule> rules;
   std::map<Symbol,std::set<Symbol>> firsts;
   std::map<Symbol,std::set<Symbol>> follows;
+
+  std::vector<Item> items;
+  std::map<std::set<RuleState>, int> items_index;
 
 private:
 
   void addRule(const Rule &rule);
   void fillFirsts();
   void fillFollows();
-  void getNonTerminals(std::set<Symbol> &nonTerminals);
+  void generateGraph();
 
 }; // class Parser
 

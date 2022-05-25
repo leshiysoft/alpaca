@@ -117,12 +117,9 @@ namespace Alpaca
     }
   }
 
-  void Parser::getNonTerminals(std::set<Symbol> &nonTerminals)
+  void Parser::generateGraph()
   {
-    for(auto r = rules.begin(); r != rules.end(); r++)
-    {
-      nonTerminals.insert(r->leftSide);
-    }
+    // TODO: реализовать
   }
 
 } // namespace Alpaca
