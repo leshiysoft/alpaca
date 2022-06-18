@@ -10,11 +10,14 @@ main = do
   text <- readFile "test.al"
   tokens <- return $ alexScanTokens text
   tree <- return $ synt tokens
-  putStrLn $ compile tree
+  output <- return $ compile tree
+  writeFile "main.c" output
+  putStrLn output
 
 compile :: Prog -> String
-compile (Prog fs) = defs ++ "\n" ++ impls
+compile (Prog fs) = inc ++ defs ++ "\n" ++ impls
   where
+    inc = "#include <stdio.h>\n\n"
     defs = concat $ map (++ ";\n") $  map compileFuncDef fs
     impls = concat $ map ( ++ "\n") $ map compileFunc fs
 
@@ -84,3 +87,4 @@ compileTerm (TermCall fc) = compileCall fc
 compileTerm (TermCallMinus fc) = "-" ++ compileCall fc
 compileTerm (TermExpr e) = "(" ++ compileExpr e ++ ")"
 compileTerm (TermExprMinus e) = "-(" ++ compileExpr e ++ ")"
+compileTerm (TermString s) = s

@@ -8,6 +8,7 @@ import AlpacaLexer
 %error { parseError }
 
 %token
+  string      { TString $$ }
   func        { TFunc }
   return      { TReturn }
   arrow       { TArrow }
@@ -87,6 +88,7 @@ Term:
   | '-' id '(' ')'              { TermCallMinus $ FuncCall (FuncName $ Id $2) [] }
   | '(' Expr ')'                { TermExpr $2 }
   | '-' '(' Expr ')'            { TermExprMinus $3 }
+  | string                      { TermString $1 }
 
 
 {
@@ -118,7 +120,8 @@ data Term =
   | TermCall FuncCall
   | TermCallMinus FuncCall
   | TermExpr Expr
-  | TermExprMinus Expr deriving (Show)
+  | TermExprMinus Expr
+  | TermString String deriving (Show)
 
 
 }

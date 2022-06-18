@@ -6,6 +6,7 @@ module AlpacaLexer where
 
 $digit = 0-9
 $alpha = [a-zA-Z]
+@string  = $printable # [\"]
 
 tokens :-
 
@@ -17,6 +18,7 @@ tokens :-
   $digit+                                       { \s -> TInteger (read s)}
   [\=\+\-\*\/\(\)\{\}\;\,]                      { \s -> TSym (head s)}
   $alpha [$alpha $digit \_ ]*                   { \s -> TId s}
+  \" @string* \"		                            { \s -> TString s}
 
 {
 data Token =
@@ -25,5 +27,6 @@ data Token =
   | TArrow
   | TInteger Int
   | TSym Char
+  | TString String
   | TId String deriving (Eq, Show)
 }
