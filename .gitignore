@@ -1,2 +1,6 @@
 build/*
 log.c
+*.hi
+*.o
+haskell/main
+
